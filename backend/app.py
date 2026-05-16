@@ -697,6 +697,13 @@ def book_session():
 
     db.session.commit()
 
+    return jsonify({
+
+        "message": "Session Booking Submitted"
+
+    })
+
+
     # SEND EMAIL TO TRAINER
 
     try:
