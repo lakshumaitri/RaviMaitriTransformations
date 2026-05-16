@@ -11,15 +11,13 @@ app = Flask(__name__)
 CORS(app)
 
 
-SENDER_EMAIL = "laxmimaitri11@gmail.com"
 
-APP_PASSWORD = "bjhf cvxu cqit cjlz"
 
 UPLOAD_FOLDER = "uploads"
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-CORS(app)
+
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///clients.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -701,13 +699,15 @@ def book_session():
 
     # SEND EMAIL TO TRAINER
 
-    send_email(
+    try:
 
-        "ravimaitri25@gmail.com",
+        send_email(
 
-        "New Session Booking Request",
+            "ravimaitri25@gmail.com",
 
-        f"""
+            "New Session Booking Request",
+
+            f"""
 New session booking received.
 
 Client Name: {data['client_name']}
@@ -724,13 +724,18 @@ Please login to trainer dashboard to approve/reject.
 Ravi Maitri Transformations
 """
 
-    )
+        )
+
+    except Exception as e:
+
+        print("Email Error:", e)
 
     return jsonify({
 
         "message": "Session Booking Submitted"
 
     })
+
 # GET BOOKINGS
 
 @app.route("/session-bookings", methods=["GET"])
