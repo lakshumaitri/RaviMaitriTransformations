@@ -8,14 +8,7 @@ from email.mime.text import MIMEText
 
 app = Flask(__name__)
 
-CORS(app, resources={
-    r"/*": {
-        "origins": [
-            "https://www.ravimaitritransformations.com",
-            "https://ravimaitritransformations.com"
-        ]
-    }
-})
+CORS(app)
 
 
 SENDER_EMAIL = "laxmimaitri11@gmail.com"
