@@ -18,7 +18,7 @@ function Transformations() {
     try {
 
       const response = await axios.get(
-        "http://127.0.0.1:5000/all-transformations"
+        "https://ravimaitritransformations.onrender.com/all-transformations"
       );
 
       setTransformations(
@@ -56,7 +56,7 @@ function Transformations() {
 
               <motion.img
                 key={index}
-                src={`http://127.0.0.1:5000/uploads/${image.image_name}`}
+                src={`https://ravimaitritransformations.onrender.com/uploads/${image.image_name}`}
                 alt="Transformation"
                 whileHover={{ scale: 1.03 }}
                 className="rounded-3xl h-80 md:h-96 w-full object-cover shadow-lg"

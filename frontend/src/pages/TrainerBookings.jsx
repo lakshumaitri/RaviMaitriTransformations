@@ -18,7 +18,7 @@ function TrainerBookings() {
 
       const response = await axios.get(
 
-        "http://127.0.0.1:5000/session-bookings"
+        "https://ravimaitritransformations.onrender.com/session-bookings"
 
       );
 
@@ -38,7 +38,7 @@ function TrainerBookings() {
 
       await axios.put(
 
-        `http://127.0.0.1:5000/approve-booking/${id}`
+        `https://ravimaitritransformations.onrender.com/approve-booking/${id}`
 
       );
 
@@ -60,7 +60,7 @@ function TrainerBookings() {
 
       await axios.put(
 
-        `http://127.0.0.1:5000/reject-booking/${id}`
+        `https://ravimaitritransformations.onrender.com/reject-booking/${id}`
 
       );
 

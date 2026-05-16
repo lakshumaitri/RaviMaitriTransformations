@@ -27,7 +27,7 @@ function ClientDashboard() {
       const clientId = localStorage.getItem("clientId");
 
       const response = await axios.get(
-        `http://127.0.0.1:5000/client/${clientId}`
+        `https://ravimaitritransformations.onrender.com/client/${clientId}`
       );
 
       setClientData(response.data);
@@ -60,7 +60,7 @@ function ClientDashboard() {
 
       const response = await axios.get(
 
-        `http://127.0.0.1:5000/payments/${clientId}`
+        `https://ravimaitritransformations.onrender.com/payments/${clientId}`
 
       );
 

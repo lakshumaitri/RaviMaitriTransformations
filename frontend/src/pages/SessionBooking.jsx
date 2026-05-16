@@ -50,7 +50,7 @@ function SessionBooking() {
 
       const response = await axios.post(
 
-        "http://127.0.0.1:5000/book-session",
+        "https://ravimaitritransformations.onrender.com/book-session",
 
         bookingData
 
