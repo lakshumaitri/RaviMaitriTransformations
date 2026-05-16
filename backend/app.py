@@ -32,6 +32,12 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///clients.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
+
+SENDER_EMAIL = "ravimaitri25@gmail.com"
+
+APP_PASSWORD = "nxdqcrfbtpsssdjw"
+
+
 def send_email(receiver_email, subject, body):
 
     try:
