@@ -7,6 +7,17 @@ import smtplib
 from email.mime.text import MIMEText
 
 app = Flask(__name__)
+
+CORS(app, resources={
+    r"/*": {
+        "origins": [
+            "https://www.ravimaitritransformations.com",
+            "https://ravimaitritransformations.com"
+        ]
+    }
+})
+
+
 SENDER_EMAIL = "laxmimaitri11@gmail.com"
 
 APP_PASSWORD = "bjhf cvxu cqit cjlz"
