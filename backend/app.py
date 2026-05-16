@@ -41,10 +41,15 @@ def send_email(receiver_email, subject, body):
 
         server = smtplib.SMTP(
             "smtp.gmail.com",
-            587
+            587,
+            timeout=5
         )
 
+        server.ehlo()
+
         server.starttls()
+
+        server.ehlo()
 
         server.login(
             SENDER_EMAIL,
@@ -61,10 +66,13 @@ def send_email(receiver_email, subject, body):
 
         print("Email Sent Successfully")
 
+        return True
+
     except Exception as e:
 
-        print("Email Error:", e)
+        print("Email Error:", str(e))
 
+        return False
 
 # CLIENT MODEL
 
@@ -697,15 +705,6 @@ def book_session():
 
     db.session.commit()
 
-    return jsonify({
-
-        "message": "Session Booking Submitted"
-
-    })
-
-
-    # SEND EMAIL TO TRAINER
-
     try:
 
         send_email(
@@ -730,18 +729,18 @@ Please login to trainer dashboard to approve/reject.
 
 Ravi Maitri Transformations
 """
-
         )
 
     except Exception as e:
 
-        print("Email Error:", e)
+        print("Booking Email Error:", e)
 
     return jsonify({
 
         "message": "Session Booking Submitted"
 
     })
+
 
 # GET BOOKINGS
 
@@ -769,6 +768,7 @@ def get_bookings():
 
     return jsonify(booking_list)
 
+
 # APPROVE BOOKING
 
 @app.route("/approve-booking/<int:id>", methods=["PUT"])
@@ -787,15 +787,15 @@ def approve_booking(id):
 
     db.session.commit()
 
-    # SEND EMAIL
+    try:
 
-    send_email(
+        send_email(
 
-        booking.client_email,
+            booking.client_email,
 
-        "Session Approved",
+            "Session Approved",
 
-        f"""
+            f"""
 Hello {booking.client_name},
 
 Your session booking has been approved.
@@ -806,14 +806,18 @@ Time: {booking.booking_time}
 Thank you,
 Ravi Maitri Transformations
 """
+        )
 
-    )
+    except Exception as e:
+
+        print("Approve Email Error:", e)
 
     return jsonify({
 
         "message": "Booking Approved"
 
     })
+
 
 # REJECT BOOKING
 
@@ -833,15 +837,15 @@ def reject_booking(id):
 
     db.session.commit()
 
-    # SEND EMAIL
+    try:
 
-    send_email(
+        send_email(
 
-        booking.client_email,
+            booking.client_email,
 
-        "Session Rejected",
+            "Session Rejected",
 
-        f"""
+            f"""
 Hello {booking.client_name},
 
 Unfortunately your session request was rejected.
@@ -851,15 +855,17 @@ Please book another available slot.
 Thank you,
 Ravi Maitri Transformations
 """
+        )
 
-    )
+    except Exception as e:
+
+        print("Reject Email Error:", e)
 
     return jsonify({
 
         "message": "Booking Rejected"
 
     })
-
 # ADD PAYMENT
 
 @app.route("/add-payment", methods=["POST"])
