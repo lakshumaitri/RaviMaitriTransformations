@@ -19,9 +19,10 @@ function Register() {
     goal: "",
     training_type: "",
     password: "",
-    joining_date: ""
+    joining_date: new Date().toISOString().split("T")[0]
 
   });
+
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
@@ -38,13 +39,15 @@ function Register() {
   const handleSubmit = async (e) => {
 
     e.preventDefault();
-    console.log(formData);
 
     try {
 
       const response = await axios.post(
+
         "https://ravimaitritransformations.onrender.com/register",
+
         formData
+
       );
 
       alert(response.data.message);
@@ -62,6 +65,7 @@ function Register() {
   };
 
   return (
+
     <div className="min-h-screen bg-black text-white">
 
       <Navbar />
@@ -71,7 +75,9 @@ function Register() {
         <div className="bg-[#111111] p-10 rounded-2xl shadow-lg w-full max-w-2xl">
 
           <h1 className="text-4xl font-bold text-center mb-10 text-orange-500">
+
             Client Registration
+
           </h1>
 
           <form
@@ -161,58 +167,65 @@ function Register() {
 
               <option value="">Training Type</option>
 
-              <option>personal Training</option>
+              <option>Personal Training</option>
+
+              <option>Online Coaching</option>
 
               <option>Swimming Classes</option>
 
             </select>
 
+            {/* PASSWORD */}
+
             <div className="relative">
 
-  <input
-    type={showPassword ? "text" : "password"}
-    name="password"
-    placeholder="Password"
-    onChange={handleChange}
-    className="w-full bg-black border border-gray-700 p-4 rounded-xl outline-none"
-    required
-  />
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Password"
+                onChange={handleChange}
+                className="w-full bg-black border border-gray-700 p-4 rounded-xl outline-none"
+                required
+              />
 
-  <button
-    type="button"
-    onClick={() =>
-      setShowPassword(!showPassword)
-    }
-    className="absolute right-4 top-5 text-gray-400"
-  >
+              <button
+                type="button"
+                onClick={() =>
+                  setShowPassword(!showPassword)
+                }
+                className="absolute right-4 top-5 text-gray-400"
+              >
 
-    {
-      showPassword
-        ? <EyeOff size={20} />
-        : <Eye size={20} />
-    }
+                {
+                  showPassword
+                    ? <EyeOff size={20} />
+                    : <Eye size={20} />
+                }
 
-  </button>
+              </button>
 
-<div>
+            </div>
 
-  <label className="block mb-2 text-gray-300 font-medium">
+            {/* JOINING DATE */}
 
-    Joining Date
+            <div>
 
-  </label>
+              <label className="block mb-2 text-gray-300 font-medium">
 
-  <input
-    type="date"
-    name="joining_date"
-    value={formData.joining_date}
-    onChange={handleChange}
-    className="w-full bg-black border border-gray-700 p-4 rounded-xl outline-none text-white"
-    required
-  />
+                Joining Date
 
-</div>
+              </label>
 
+              <input
+                type="date"
+                name="joining_date"
+                value={formData.joining_date}
+                onChange={handleChange}
+                className="w-full bg-black border border-gray-700 p-4 rounded-xl outline-none text-white"
+                required
+              />
+
+            </div>
 
             <button
               type="submit"
@@ -230,8 +243,9 @@ function Register() {
       </div>
 
     </div>
-  );
-}
 
+  );
+
+}
 
 export default Register;
