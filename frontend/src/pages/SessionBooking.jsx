@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function SessionBooking() {
+
   const navigate = useNavigate();
 
   const [bookingData, setBookingData] = useState({
@@ -18,6 +19,8 @@ function SessionBooking() {
 
   const [status, setStatus] = useState("");
 
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
 
     setBookingData({
@@ -30,6 +33,8 @@ function SessionBooking() {
   };
 
   const handleBooking = async () => {
+
+    if (loading) return;
 
     if (
 
@@ -48,6 +53,8 @@ function SessionBooking() {
 
     try {
 
+      setLoading(true);
+
       const response = await axios.post(
 
         "https://ravimaitritransformations.onrender.com/book-session",
@@ -58,11 +65,11 @@ function SessionBooking() {
 
       console.log(response.data);
 
-      alert(
-  "Session request submitted successfully. You will be notified once trainer approves your booking."
-);
+      setStatus("Booking Submitted Successfully");
 
-navigate("/");
+      alert(
+        "Session request submitted successfully. You will be notified once trainer approves your booking."
+      );
 
       setBookingData({
 
@@ -74,11 +81,19 @@ navigate("/");
 
       });
 
+      navigate("/");
+
     } catch (error) {
 
       console.log(error);
 
+      setStatus("Booking Failed");
+
       alert("Booking Failed");
+
+    } finally {
+
+      setLoading(false);
 
     }
 
@@ -167,10 +182,11 @@ navigate("/");
 
             <button
               onClick={handleBooking}
-              className="w-full bg-orange-500 hover:bg-orange-600 py-4 rounded-xl font-bold text-lg"
+              disabled={loading}
+              className="w-full bg-orange-500 hover:bg-orange-600 py-4 rounded-xl font-bold text-lg disabled:opacity-50"
             >
 
-              Book Session
+              {loading ? "Booking..." : "Book Session"}
 
             </button>
 

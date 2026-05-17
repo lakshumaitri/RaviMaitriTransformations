@@ -5,12 +5,17 @@ import {
 import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const API = "https://ravimaitritransformations.onrender.com";
 
 function TrainerDashboard() {
 
+  const navigate = useNavigate();
+
   const [showClients, setShowClients] = useState(false);
+
+  const [loadingClients, setLoadingClients] = useState(false);
 
   const [clients, setClients] = useState([]);
 
@@ -43,9 +48,13 @@ function TrainerDashboard() {
 
     try {
 
+      setLoadingClients(true);
+
       const response = await axios.get(
         `${API}/clients`
       );
+
+      console.log(response.data);
 
       setClients(
         Array.isArray(response.data)
@@ -57,7 +66,21 @@ function TrainerDashboard() {
 
       console.log(error);
 
+      alert("Failed to load clients");
+
+    } finally {
+
+      setLoadingClients(false);
+
     }
+
+  };
+
+  const openClients = async () => {
+
+    setShowClients(true);
+
+    await fetchClients();
 
   };
 
@@ -242,22 +265,22 @@ function TrainerDashboard() {
 
         <div className="flex justify-end mb-8">
 
-  <button
-    onClick={() => {
+          <button
+            onClick={() => {
 
-      localStorage.removeItem("trainerLoggedIn");
+              localStorage.removeItem("trainerLoggedIn");
 
-      window.location.href = "/login";
+              window.location.href = "/login";
 
-    }}
-    className="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-xl font-bold"
-  >
+            }}
+            className="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-xl font-bold"
+          >
 
-    Logout
+            Logout
 
-  </button>
+          </button>
 
-</div>
+        </div>
 
         <h1 className="text-4xl md:text-6xl font-bold text-orange-500 text-center mb-16">
 
@@ -265,12 +288,10 @@ function TrainerDashboard() {
 
         </h1>
 
-        {/* TOP CARDS */}
-
         <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto mb-16">
 
           <div
-            onClick={() => setShowClients(true)}
+            onClick={openClients}
             className="bg-[#111111] p-12 rounded-3xl shadow-lg hover:scale-105 transition text-center cursor-pointer"
           >
 
@@ -311,10 +332,32 @@ function TrainerDashboard() {
 
         </div>
 
-        {/* CLIENT MANAGEMENT */}
+        {
+          loadingClients && (
+
+            <div className="text-center text-orange-500 text-2xl font-bold">
+
+              Loading Clients...
+
+            </div>
+
+          )
+        }
 
         {
-          showClients && (
+          showClients && !loadingClients && clients.length === 0 && (
+
+            <div className="text-center text-gray-400 text-xl">
+
+              No clients found.
+
+            </div>
+
+          )
+        }
+
+        {
+          showClients && !loadingClients && clients.length > 0 && (
 
             <div className="grid md:grid-cols-2 gap-8">
 
@@ -354,142 +397,6 @@ function TrainerDashboard() {
                       </button>
 
                     </div>
-
-                    <textarea
-                      placeholder="Add Workout Plan..."
-                      onChange={(e) => setWorkoutData(e.target.value)}
-                      className="w-full bg-black border border-gray-700 p-4 rounded-xl mb-4 outline-none"
-                      rows="4"
-                    />
-
-                    <button
-                      onClick={() => addWorkout(client.id)}
-                      className="w-full bg-orange-500 hover:bg-orange-600 py-3 rounded-xl font-bold mb-6"
-                    >
-
-                      Save Workout
-
-                    </button>
-
-                    <textarea
-                      placeholder="Add Diet Plan..."
-                      onChange={(e) => setDietData(e.target.value)}
-                      className="w-full bg-black border border-gray-700 p-4 rounded-xl mb-4 outline-none"
-                      rows="4"
-                    />
-
-                    <button
-                      onClick={() => addDiet(client.id)}
-                      className="w-full bg-orange-500 hover:bg-orange-600 py-3 rounded-xl font-bold mb-6"
-                    >
-
-                      Save Diet
-
-                    </button>
-
-                    <input
-                      type="number"
-                      name="current_weight"
-                      placeholder="Current Weight"
-                      onChange={handleProgressChange}
-                      className="w-full bg-black border border-gray-700 p-4 rounded-xl mb-4 outline-none"
-                    />
-
-                    <textarea
-                      name="notes"
-                      placeholder="Progress Notes..."
-                      onChange={handleProgressChange}
-                      className="w-full bg-black border border-gray-700 p-4 rounded-xl mb-4 outline-none"
-                      rows="3"
-                    />
-
-                    <button
-                      onClick={() => addProgress(client.id)}
-                      className="w-full bg-orange-500 hover:bg-orange-600 py-3 rounded-xl font-bold mb-6"
-                    >
-
-                      Add Progress
-
-                    </button>
-
-                    <div className="bg-black border border-gray-700 p-6 rounded-2xl mb-6">
-
-                      <h3 className="text-2xl font-bold text-orange-500 mb-6">
-
-                        Payment Management
-
-                      </h3>
-
-                      <input
-                        type="number"
-                        name="amount"
-                        placeholder="Amount"
-                        value={paymentData.amount}
-                        onChange={handlePaymentChange}
-                        className="w-full bg-[#111111] border border-gray-700 p-4 rounded-xl mb-4 outline-none"
-                      />
-
-                      <div className="mb-4">
-
-                        <label className="block mb-2 text-gray-300">
-
-                          Joined Date
-
-                        </label>
-
-                        <input
-                          type="date"
-                          name="payment_date"
-                          value={paymentData.payment_date}
-                          onChange={handlePaymentChange}
-                          className="w-full bg-[#111111] border border-gray-700 p-4 rounded-xl outline-none"
-                        />
-
-                      </div>
-
-                      <div className="mb-6">
-
-                        <label className="block mb-2 text-gray-300">
-
-                          Due Date
-
-                        </label>
-
-                        <input
-                          type="date"
-                          name="next_due_date"
-                          value={paymentData.next_due_date}
-                          onChange={handlePaymentChange}
-                          className="w-full bg-[#111111] border border-gray-700 p-4 rounded-xl outline-none"
-                        />
-
-                      </div>
-
-                      <button
-                        onClick={() => addPayment(client.id)}
-                        className="w-full bg-orange-500 hover:bg-orange-600 py-3 rounded-xl font-bold"
-                      >
-
-                        Save Payment
-
-                      </button>
-
-                    </div>
-
-                    <input
-                      type="file"
-                      onChange={(e) => setSelectedImage(e.target.files[0])}
-                      className="w-full mb-4"
-                    />
-
-                    <button
-                      onClick={() => uploadTransformation(client.id)}
-                      className="w-full bg-orange-500 hover:bg-orange-600 py-3 rounded-xl font-bold"
-                    >
-
-                      Upload Transformation
-
-                    </button>
 
                   </div>
 
