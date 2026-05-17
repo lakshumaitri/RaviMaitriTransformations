@@ -4,6 +4,7 @@ from database import db
 from werkzeug.utils import secure_filename
 import os
 import requests
+from flask import send_from_directory
 
 app = Flask(__name__)
 
@@ -103,9 +104,7 @@ class Progress(db.Model):
 
     notes = db.Column(db.String(300))
 
-
 # WORKOUT MODEL
-
 class Workout(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -114,6 +113,7 @@ class Workout(db.Model):
 
     workout_text = db.Column(db.String(1000))
 
+    file_name = db.Column(db.String(300))
 
 # DIET MODEL
 
@@ -481,22 +481,48 @@ def get_client(id):
 
 def add_workout():
 
-    data = request.json
+    client_id = request.form.get("client_id")
+
+    workout_text = request.form.get("workout_text")
+
+    uploaded_file = request.files.get("file")
+
+    file_name = ""
+
+    if uploaded_file:
+
+        file_name = secure_filename(
+            uploaded_file.filename
+        )
+
+        uploaded_file.save(
+
+            os.path.join(
+                app.config["UPLOAD_FOLDER"],
+                file_name
+            )
+
+        )
 
     existing_workout = Workout.query.filter_by(
-        client_id=data["client_id"]
+        client_id=client_id
     ).first()
 
     if existing_workout:
 
-        existing_workout.workout_text = data["workout_text"]
+        existing_workout.workout_text = workout_text
+
+        existing_workout.file_name = file_name
 
     else:
 
         workout = Workout(
 
-            client_id=data["client_id"],
-            workout_text=data["workout_text"]
+            client_id=client_id,
+
+            workout_text=workout_text,
+
+            file_name=file_name
 
         )
 
@@ -505,7 +531,9 @@ def add_workout():
     db.session.commit()
 
     return jsonify({
-        "message": "Workout Saved"
+
+        "message": "Workout Uploaded"
+
     })
 
 
@@ -525,7 +553,8 @@ def get_workouts(client_id):
 
         workout_list.append({
 
-            "workout_text": workout.workout_text
+            "workout_text": workout.workout_text,
+            "file_name": workout.file_name
 
         })
 
