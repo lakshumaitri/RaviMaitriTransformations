@@ -78,6 +78,8 @@ function TrainerDashboard() {
 
   const openClients = async () => {
 
+    console.log("Clients clicked");
+
     setShowClients(true);
 
     await fetchClients();
@@ -291,11 +293,7 @@ function TrainerDashboard() {
         <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto mb-16">
 
           <div
-            onClick={() => {
-              console.log("Clients clicked");
-              alert("Clients button clicked");
-              openClients();
-            }}
+            onClick={openClients}
             className="bg-[#111111] p-12 rounded-3xl shadow-lg hover:scale-105 transition text-center cursor-pointer"
           >
 
@@ -337,74 +335,76 @@ function TrainerDashboard() {
         </div>
 
         {
-          loadingClients && (
+          showClients && (
 
-            <div className="text-center text-orange-500 text-2xl font-bold">
+            <div className="mt-10">
 
-              Loading Clients...
+              <h2 className="text-3xl font-bold text-orange-500 mb-6">
 
-            </div>
+                Clients List
 
-          )
-        }
-
-        {
-          showClients && !loadingClients && clients.length === 0 && (
-
-            <div className="text-center text-gray-400 text-xl">
-
-              No clients found.
-
-            </div>
-
-          )
-        }
-
-        {
-          showClients && !loadingClients && clients.length > 0 && (
-
-            <div className="grid md:grid-cols-2 gap-8">
+              </h2>
 
               {
-                clients.map((client) => (
+                loadingClients ? (
 
-                  <div
-                    key={client.id}
-                    className="bg-[#111111] p-8 rounded-3xl shadow-lg"
-                  >
+                  <p className="text-white text-xl">
 
-                    <div className="flex justify-between items-start mb-6">
+                    Loading...
 
-                      <div>
+                  </p>
 
-                        <h2 className="text-2xl md:text-3xl font-bold text-orange-500 mb-2">
+                ) : clients.length === 0 ? (
 
-                          {client.full_name}
+                  <p className="text-white text-xl">
 
-                        </h2>
+                    No clients found
 
-                        <p className="text-gray-400 text-lg">
+                  </p>
 
-                          {client.goal}
+                ) : (
 
-                        </p>
+                  clients.map((client) => (
+
+                    <div
+                      key={client.id}
+                      className="bg-[#111111] p-6 rounded-2xl mb-6"
+                    >
+
+                      <div className="flex justify-between items-center">
+
+                        <div>
+
+                          <h3 className="text-2xl text-orange-500 font-bold">
+
+                            {client.full_name}
+
+                          </h3>
+
+                          <p className="text-white mt-2">
+
+                            {client.email}
+
+                          </p>
+
+                        </div>
+
+                        <button
+                          onClick={() => deleteClient(client.id)}
+                          className="bg-red-600 hover:bg-red-700 p-3 rounded-xl"
+                        >
+
+                          <Trash2 />
+
+                        </button>
 
                       </div>
 
-                      <button
-                        onClick={() => deleteClient(client.id)}
-                        className="text-red-500"
-                      >
-
-                        <Trash2 />
-
-                      </button>
-
                     </div>
 
-                  </div>
+                  ))
 
-                ))
+                )
               }
 
             </div>
