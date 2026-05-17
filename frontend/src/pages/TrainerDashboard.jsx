@@ -325,7 +325,7 @@ function TrainerDashboard() {
 
                     <div
                       key={client.id}
-                      className="bg-[#111111] p-6 rounded-2xl mb-6"
+                      className="bg-[#111111] border border-gray-800 p-6 rounded-3xl mb-8 shadow-lg"
                     >
 
                       <div className="flex justify-between items-center mb-6">
@@ -338,7 +338,7 @@ function TrainerDashboard() {
 
                           </h3>
 
-                          <p className="text-white mt-2">
+                          <p className="text-gray-400 mt-2">
 
                             {client.email}
 
@@ -357,91 +357,131 @@ function TrainerDashboard() {
 
                       </div>
 
-                      <div className="grid md:grid-cols-2 gap-4">
+                      {/* MAIN CARDS */}
 
-                        <textarea
-                          name="notes"
-                          placeholder="Progress Notes"
-                          onChange={handleProgressChange}
-                          className="bg-black border border-gray-700 p-4 rounded-xl outline-none text-white"
-                        />
+                      <div className="grid lg:grid-cols-3 gap-5">
 
-                        <input
-                          type="number"
-                          name="current_weight"
-                          placeholder="Current Weight"
-                          onChange={handleProgressChange}
-                          className="bg-black border border-gray-700 p-4 rounded-xl outline-none text-white"
-                        />
+                        {/* PROGRESS */}
 
-                        <button
-                          onClick={() => addProgress(client.id)}
-                          className="bg-orange-500 hover:bg-orange-600 py-3 rounded-xl font-bold"
-                        >
+                        <div className="bg-black border border-gray-800 rounded-2xl p-5">
 
-                          Add Progress
+                          <h3 className="text-orange-500 text-xl font-bold mb-4">
 
-                        </button>
+                            Progress
 
-                        <textarea
-                          placeholder="Workout Plan"
-                          onChange={(e) => setWorkoutData(e.target.value)}
-                          className="bg-black border border-gray-700 p-4 rounded-xl outline-none text-white"
-                        />
+                          </h3>
 
-                        <input
-                          type="file"
-                          accept="image/*,.pdf"
-                          onChange={(e) =>
-                            setSelectedWorkoutFile(
-                              e.target.files[0]
-                            )
-                          }
-                          className="bg-black border border-gray-700 p-3 rounded-xl text-white"
-                        />
+                          <textarea
+                            name="notes"
+                            placeholder="Progress Notes"
+                            onChange={handleProgressChange}
+                            className="w-full bg-[#111111] border border-gray-700 p-3 rounded-xl outline-none text-white text-sm h-24 mb-3"
+                          />
 
-                        <button
-                          onClick={() => addWorkout(client.id)}
-                          className="bg-orange-500 hover:bg-orange-600 py-3 rounded-xl font-bold"
-                        >
+                          <input
+                            type="number"
+                            name="current_weight"
+                            placeholder="Current Weight"
+                            onChange={handleProgressChange}
+                            className="w-full bg-[#111111] border border-gray-700 p-3 rounded-xl outline-none text-white text-sm mb-3"
+                          />
 
-                          Upload Workout
+                          <button
+                            onClick={() => addProgress(client.id)}
+                            className="w-full bg-orange-500 hover:bg-orange-600 py-2 rounded-xl font-bold text-sm"
+                          >
 
-                        </button>
+                            Save Progress
 
-                        <textarea
-                          placeholder="Diet Plan"
-                          onChange={(e) => setDietData(e.target.value)}
-                          className="bg-black border border-gray-700 p-4 rounded-xl outline-none text-white"
-                        />
+                          </button>
 
-                        <input
-                          type="file"
-                          accept="image/*,.pdf"
-                          onChange={(e) =>
-                            setSelectedDietFile(
-                              e.target.files[0]
-                            )
-                          }
-                          className="bg-black border border-gray-700 p-3 rounded-xl text-white"
-                        />
+                        </div>
 
-                        <button
-                          onClick={() => addDiet(client.id)}
-                          className="bg-orange-500 hover:bg-orange-600 py-3 rounded-xl font-bold"
-                        >
+                        {/* WORKOUT */}
 
-                          Upload Diet
+                        <div className="bg-black border border-gray-800 rounded-2xl p-5">
 
-                        </button>
+                          <h3 className="text-orange-500 text-xl font-bold mb-4">
+
+                            Workout
+
+                          </h3>
+
+                          <textarea
+                            placeholder="Workout Plan"
+                            onChange={(e) => setWorkoutData(e.target.value)}
+                            className="w-full bg-[#111111] border border-gray-700 p-3 rounded-xl outline-none text-white text-sm h-24 mb-3"
+                          />
+
+                          <input
+                            type="file"
+                            accept="image/*,.pdf"
+                            onChange={(e) =>
+                              setSelectedWorkoutFile(
+                                e.target.files[0]
+                              )
+                            }
+                            className="w-full text-sm text-white mb-3"
+                          />
+
+                          <button
+                            onClick={() => addWorkout(client.id)}
+                            className="w-full bg-orange-500 hover:bg-orange-600 py-2 rounded-xl font-bold text-sm"
+                          >
+
+                            Upload Workout
+
+                          </button>
+
+                        </div>
+
+                        {/* DIET */}
+
+                        <div className="bg-black border border-gray-800 rounded-2xl p-5">
+
+                          <h3 className="text-orange-500 text-xl font-bold mb-4">
+
+                            Diet
+
+                          </h3>
+
+                          <textarea
+                            placeholder="Diet Plan"
+                            onChange={(e) => setDietData(e.target.value)}
+                            className="w-full bg-[#111111] border border-gray-700 p-3 rounded-xl outline-none text-white text-sm h-24 mb-3"
+                          />
+
+                          <input
+                            type="file"
+                            accept="image/*,.pdf"
+                            onChange={(e) =>
+                              setSelectedDietFile(
+                                e.target.files[0]
+                              )
+                            }
+                            className="w-full text-sm text-white mb-3"
+                          />
+
+                          <button
+                            onClick={() => addDiet(client.id)}
+                            className="w-full bg-orange-500 hover:bg-orange-600 py-2 rounded-xl font-bold text-sm"
+                          >
+
+                            Upload Diet
+
+                          </button>
+
+                        </div>
 
                       </div>
 
-                      <div className="mt-6 border border-gray-700 p-4 rounded-2xl">
+                      {/* TRANSFORMATION */}
 
-                        <h3 className="text-xl font-bold text-orange-500 mb-4">
+                      <div className="mt-5 bg-black border border-gray-800 rounded-2xl p-5">
 
-                          Upload Transformation
+                        <h3 className="text-orange-500 text-xl font-bold mb-4">
+
+                          Transformation Upload
 
                         </h3>
 
@@ -453,15 +493,15 @@ function TrainerDashboard() {
                               e.target.files[0]
                             )
                           }
-                          className="bg-black border border-gray-700 p-3 rounded-xl text-white w-full"
+                          className="w-full text-sm text-white mb-4"
                         />
 
                         <button
                           onClick={() => uploadTransformation(client.id)}
-                          className="mt-4 bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-xl font-bold"
+                          className="bg-orange-500 hover:bg-orange-600 px-5 py-2 rounded-xl font-bold text-sm"
                         >
 
-                          Upload Transformation
+                          Upload Image
 
                         </button>
 
