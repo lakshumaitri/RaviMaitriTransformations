@@ -19,6 +19,8 @@ import Payments from "./pages/Payments";
 import Services from "./pages/Services";
 import Transformations from "./pages/Transformations";
 import Contact from "./pages/Contact";
+import AddTransformations from "./pages/AddTransformations";
+
 
 
 function App() {
@@ -104,6 +106,10 @@ function App() {
 <Route
   path="/contact"
   element={<Contact />}
+/>
+<Route
+  path="/add-transformations"
+  element={<AddTransformations />}
 />
 
 

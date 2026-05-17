@@ -24,7 +24,7 @@ function Contact() {
 
               <span className="font-bold text-orange-500">
 
-                Trainer:
+                Coach:
 
               </span>
 

@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 
 function Register() {
 
@@ -21,6 +22,7 @@ function Register() {
     joining_date: ""
 
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
 
@@ -165,23 +167,44 @@ function Register() {
 
             </select>
 
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              onChange={handleChange}
-              className="bg-black border border-gray-700 p-4 rounded-xl outline-none"
-              required
-            />
+            <div className="relative">
+
+  <input
+    type={showPassword ? "text" : "password"}
+    name="password"
+    placeholder="Password"
+    onChange={handleChange}
+    className="w-full bg-black border border-gray-700 p-4 rounded-xl outline-none"
+    required
+  />
+
+  <button
+    type="button"
+    onClick={() =>
+      setShowPassword(!showPassword)
+    }
+    className="absolute right-4 top-5 text-gray-400"
+  >
+
+    {
+      showPassword
+        ? <EyeOff size={20} />
+        : <Eye size={20} />
+    }
+
+  </button>
+
+</div>
 
             <input
-              type="date"
-              name="joining_date"
-              placeholder="Joining Date"
-              onChange={handleChange}
-              className="bg-black border border-gray-700 p-4 rounded-xl outline-none"
-              required
-            />
+            type="date"
+            name="joining_date"
+            value={formData.joining_date}
+            onChange={handleChange}
+            className="bg-black border border-gray-700 p-4 rounded-xl outline-none text-white"
+             required
+             />
+
 
             <button
               type="submit"

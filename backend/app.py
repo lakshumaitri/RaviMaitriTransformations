@@ -137,6 +137,22 @@ class Transformation(db.Model):
 
     image_name = db.Column(db.String(300))
 
+class PublicTransformation(db.Model):
+
+    id = db.Column(
+        db.Integer,
+        primary_key=True
+    )
+
+    image_name = db.Column(
+        db.String(300)
+    )
+
+    caption = db.Column(
+        db.String(500)
+    )
+
+
     # SESSION BOOKING MODEL
 
 class SessionBooking(db.Model):
@@ -1024,7 +1040,48 @@ def uploaded_file(filename):
         filename
     )
 
+@app.route("/public-transformation", methods=["POST"])
+
+def public_transformation():
+
+    image = request.files.get("image")
+
+    caption = request.form.get("caption")
+
+    if not image:
+
+        return jsonify({
+            "message": "No image"
+        })
+
+    filename = secure_filename(
+        image.filename
+    )
+
+    image.save(
+        os.path.join(
+            app.config["UPLOAD_FOLDER"],
+            filename
+        )
+    )
+
+    transformation = PublicTransformation(
+
+        image_name=filename,
+        caption=caption
+
+    )
+
+    db.session.add(transformation)
+
+    db.session.commit()
+
+    return jsonify({
+        "message": "Uploaded"
+    })
+
 with app.app_context():
+    db.drop_all()
    
     db.create_all()
 

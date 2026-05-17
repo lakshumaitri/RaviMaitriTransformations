@@ -253,7 +253,7 @@ function TrainerDashboard() {
 
         </h1>
 
-        <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto mb-16">
+        <div className="grid md:grid-cols-3 gap-10 max-w-5xl mx-auto mb-16">
 
           <div
             onClick={openClients}
@@ -292,6 +292,27 @@ function TrainerDashboard() {
             </p>
 
           </a>
+          <a
+  href="/add-transformations"
+  className="bg-[#111111] p-12 rounded-3xl shadow-lg hover:scale-105 transition text-center"
+>
+
+  <h2 className="text-3xl font-bold mb-6 text-orange-500">
+
+    Transformations
+
+  </h2>
+
+  <p className="text-gray-400 text-lg">
+
+    Upload old client transformation photos.
+
+  </p>
+
+</a>
+
+
+
 
         </div>
 
