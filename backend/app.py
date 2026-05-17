@@ -408,7 +408,7 @@ def client_login():
 
 # GET SINGLE CLIENT DATA
 
-@# GET SINGLE CLIENT DATA
+# GET SINGLE CLIENT DATA
 
 @app.route("/client/<int:id>", methods=["GET"])
 
@@ -1021,9 +1021,7 @@ def uploaded_file(filename):
         app.config["UPLOAD_FOLDER"],
         filename
     )
-with app.app_context():
-    db.drop_all()
-    db.create_all()
+
 
 
 if __name__ == "__main__":
