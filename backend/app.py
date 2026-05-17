@@ -3,8 +3,7 @@ from flask_cors import CORS
 from database import db
 from werkzeug.utils import secure_filename
 import os
-import smtplib
-from email.mime.text import MIMEText
+import requests
 
 app = Flask(__name__)
 
@@ -26,51 +25,42 @@ db.init_app(app)
 
 SENDER_EMAIL = "ravimaitri25@gmail.com"
 
-APP_PASSWORD = "nxdqcrfbtpsssdjw"
+RESEND_API_KEY= "re_RMUGysEa_Febt64Y3pbsTCWQU82VBF5p9"
 
 
 def send_email(receiver_email, subject, body):
 
     try:
 
-        msg = MIMEText(body)
+        response = requests.post(
 
-        msg["Subject"] = subject
-        msg["From"] = SENDER_EMAIL
-        msg["To"] = receiver_email
+            "https://api.resend.com/emails",
 
-        server = smtplib.SMTP(
-            "smtp.gmail.com",
-            587,
-            timeout=5
+            headers={
+
+                "Authorization": f"Bearer {RESEND_API_KEY}",
+                "Content-Type": "application/json"
+
+            },
+
+            json={
+
+                "from": "onboarding@resend.dev",
+                "to": receiver_email,
+                "subject": subject,
+                "text": body
+
+            }
+
         )
 
-        server.ehlo()
-
-        server.starttls()
-
-        server.ehlo()
-
-        server.login(
-            SENDER_EMAIL,
-            APP_PASSWORD
-        )
-
-        server.sendmail(
-            SENDER_EMAIL,
-            receiver_email,
-            msg.as_string()
-        )
-
-        server.quit()
-
-        print("Email Sent Successfully")
+        print(response.json())
 
         return True
 
     except Exception as e:
 
-        print("Email Error:", str(e))
+        print("Email Error:", e)
 
         return False
 
