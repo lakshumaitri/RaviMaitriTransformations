@@ -15,33 +15,12 @@ function Services() {
           Services
 
         </h1>
-        <div className="bg-[#111111] p-8 rounded-3xl shadow-lg hover:scale-105 transition">
-
-  <h2 className="text-2xl font-bold text-orange-500 mb-4">
-
-    Online Coaching
-
-  </h2>
-
-  <p className="text-gray-300 leading-8 mb-6">
-
-    Personalized online fitness coaching including workout
-    plans, nutrition guidance, progress tracking, and
-    one-on-one trainer support from anywhere.
-
-  </p>
-
-  <button className="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-xl font-bold">
-
-    Enquire Now
-
-  </button>
-
-</div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
 
-          <div className="bg-[#111111] p-8 rounded-3xl shadow-lg">
+          {/* WEIGHT LOSS */}
+
+          <div className="bg-[#111111] p-8 rounded-3xl shadow-lg hover:scale-105 transition">
 
             <h2 className="text-2xl font-bold text-orange-500 mb-6">
 
@@ -49,7 +28,7 @@ function Services() {
 
             </h2>
 
-            <p className="text-gray-400 text-lg">
+            <p className="text-gray-400 text-lg leading-8">
 
               Customized fat loss programs with training,
               cardio guidance and nutrition support.
@@ -58,7 +37,9 @@ function Services() {
 
           </div>
 
-          <div className="bg-[#111111] p-8 rounded-3xl shadow-lg">
+          {/* MUSCLE BUILDING */}
+
+          <div className="bg-[#111111] p-8 rounded-3xl shadow-lg hover:scale-105 transition">
 
             <h2 className="text-2xl font-bold text-orange-500 mb-6">
 
@@ -66,7 +47,7 @@ function Services() {
 
             </h2>
 
-            <p className="text-gray-400 text-lg">
+            <p className="text-gray-400 text-lg leading-8">
 
               Build lean muscle mass, strength and improve
               overall body physique with expert coaching.
@@ -75,7 +56,9 @@ function Services() {
 
           </div>
 
-          <div className="bg-[#111111] p-8 rounded-3xl shadow-lg">
+          {/* ATHLETIC */}
+
+          <div className="bg-[#111111] p-8 rounded-3xl shadow-lg hover:scale-105 transition">
 
             <h2 className="text-2xl font-bold text-orange-500 mb-6">
 
@@ -83,7 +66,7 @@ function Services() {
 
             </h2>
 
-            <p className="text-gray-400 text-lg">
+            <p className="text-gray-400 text-lg leading-8">
 
               Improve speed, endurance, agility and sports
               performance with advanced athletic training.
@@ -92,9 +75,9 @@ function Services() {
 
           </div>
 
-          
+          {/* REHAB */}
 
-          <div className="bg-[#111111] p-8 rounded-3xl shadow-lg">
+          <div className="bg-[#111111] p-8 rounded-3xl shadow-lg hover:scale-105 transition">
 
             <h2 className="text-2xl font-bold text-orange-500 mb-6">
 
@@ -102,7 +85,7 @@ function Services() {
 
             </h2>
 
-            <p className="text-gray-400 text-lg">
+            <p className="text-gray-400 text-lg leading-8">
 
               Recovery-focused exercise programs for injury
               prevention, mobility and rehabilitation.
@@ -111,7 +94,9 @@ function Services() {
 
           </div>
 
-          <div className="bg-[#111111] p-8 rounded-3xl shadow-lg">
+          {/* SWIMMING */}
+
+          <div className="bg-[#111111] p-8 rounded-3xl shadow-lg hover:scale-105 transition">
 
             <h2 className="text-2xl font-bold text-orange-500 mb-6">
 
@@ -119,7 +104,7 @@ function Services() {
 
             </h2>
 
-            <p className="text-gray-400 text-lg">
+            <p className="text-gray-400 text-lg leading-8">
 
               Professional swimming coaching for kids and
               adults from beginner to advanced level.
@@ -127,7 +112,28 @@ function Services() {
             </p>
 
           </div>
+
+          {/* ONLINE COACHING */}
+
+          <div className="bg-[#111111] p-8 rounded-3xl shadow-lg hover:scale-105 transition">
+
+            <h2 className="text-2xl font-bold text-orange-500 mb-6">
+
+              Online Coaching
+
+            </h2>
+
+            <p className="text-gray-400 text-lg leading-8 mb-6">
+
+              Personalized online fitness coaching including workout
+              plans, nutrition guidance, progress tracking, and
+              one-on-one trainer support from anywhere.
+
+            </p>
+
           
+
+          </div>
 
         </div>
 
