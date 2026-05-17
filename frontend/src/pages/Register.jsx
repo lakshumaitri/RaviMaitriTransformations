@@ -194,16 +194,24 @@ function Register() {
 
   </button>
 
-</div>
+<div>
 
-            <input
-            type="date"
-            name="joining_date"
-            value={formData.joining_date}
-            onChange={handleChange}
-            className="bg-black border border-gray-700 p-4 rounded-xl outline-none text-white"
-             required
-             />
+  <label className="block mb-2 text-gray-300 font-medium">
+
+    Joining Date
+
+  </label>
+
+  <input
+    type="date"
+    name="joining_date"
+    value={formData.joining_date}
+    onChange={handleChange}
+    className="w-full bg-black border border-gray-700 p-4 rounded-xl outline-none text-white"
+    required
+  />
+
+</div>
 
 
             <button
