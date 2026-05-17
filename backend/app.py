@@ -408,6 +408,8 @@ def client_login():
 
 # GET SINGLE CLIENT DATA
 
+@# GET SINGLE CLIENT DATA
+
 @app.route("/client/<int:id>", methods=["GET"])
 
 def get_client(id):
@@ -419,6 +421,8 @@ def get_client(id):
         return jsonify({
             "message": "Client not found"
         })
+
+    # PROGRESS
 
     progress_entries = Progress.query.filter_by(
         client_id=id
@@ -435,6 +439,8 @@ def get_client(id):
 
         })
 
+    # WORKOUTS
+
     workout_entries = Workout.query.filter_by(
         client_id=id
     ).all()
@@ -445,9 +451,15 @@ def get_client(id):
 
         workout_list.append({
 
-            "workout_text": workout.workout_text
+            "id": workout.id,
+
+            "workout_text": workout.workout_text,
+
+            "file_name": workout.file_name
 
         })
+
+    # DIETS
 
     diet_entries = Diet.query.filter_by(
         client_id=id
@@ -459,19 +471,51 @@ def get_client(id):
 
         diet_list.append({
 
-            "diet_text": diet.diet_text
+            "id": diet.id,
+
+            "diet_text": diet.diet_text,
+
+            "file_name": diet.file_name
+
+        })
+
+    # TRANSFORMATIONS
+
+    transformation_entries = Transformation.query.filter_by(
+        client_id=id
+    ).all()
+
+    transformation_list = []
+
+    for image in transformation_entries:
+
+        transformation_list.append({
+
+            "image_name": image.image_name
 
         })
 
     return jsonify({
 
+        "id": client.id,
+
         "full_name": client.full_name,
+
+        "email": client.email,
+
         "goal": client.goal,
+
         "training_type": client.training_type,
+
         "joining_date": client.joining_date,
+
         "progress": progress_list,
+
         "workouts": workout_list,
-        "diets": diet_list
+
+        "diets": diet_list,
+
+        "transformations": transformation_list
 
     })
 
