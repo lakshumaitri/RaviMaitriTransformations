@@ -36,6 +36,7 @@ function Register() {
   const handleSubmit = async (e) => {
 
     e.preventDefault();
+    console.log(formData);
 
     try {
 
@@ -139,13 +140,13 @@ function Register() {
 
               <option value="">Choose Goal</option>
 
-              <option>Weight Loss</option>
+              <option>Weight/Fat Loss</option>
 
-              <option>Muscle Gain</option>
+              <option>Muscle/Weight Gain</option>
 
-              <option>Body Toning</option>
+              <option>Body Toning & Recomposition</option>
 
-              <option>Weight Gain</option>
+              <option>Rehabilitation</option>
 
             </select>
 
@@ -158,7 +159,7 @@ function Register() {
 
               <option value="">Training Type</option>
 
-              <option>Gym Training</option>
+              <option>personal Training</option>
 
               <option>Swimming Classes</option>
 
@@ -176,6 +177,7 @@ function Register() {
             <input
               type="date"
               name="joining_date"
+              placeholder="Joining Date"
               onChange={handleChange}
               className="bg-black border border-gray-700 p-4 rounded-xl outline-none"
               required

@@ -79,7 +79,7 @@ function Home() {
             className="text-base sm:text-lg md:text-2xl text-gray-300 mb-10 px-2"
           >
 
-            Personal Gym Training & Swimming Coaching
+            Gym Training & Swimming Coaching
             for Kids to Adults
 
           </motion.p>

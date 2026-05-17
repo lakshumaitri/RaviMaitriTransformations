@@ -8,12 +8,15 @@ function PARQForm() {
 
   const [answers, setAnswers] = useState({
 
-    chestPain: "No",
     dizziness: "No",
+    jointProblem: "No",
+    medication: "No",
+    diabetes: "No",
     bloodPressure: "No",
-    boneProblem: "No",
     pregnant: "No",
-    diabetes: "No"
+    injuries: "No",
+    reason: "No",
+    additional_note: ""
 
   });
 
@@ -63,12 +66,12 @@ function PARQForm() {
 
               <h2 className="text-lg mb-3">
 
-                Do you experience chest pain during exercise?
+                Do you lose your balance because of dizziness or do you ever lose consciousness?
 
               </h2>
 
               <select
-                name="chestPain"
+                name="dizziness"
                 onChange={handleChange}
                 className="w-full bg-black border border-gray-700 p-4 rounded-xl"
               >
@@ -86,12 +89,12 @@ function PARQForm() {
 
               <h2 className="text-lg mb-3">
 
-                Do you feel dizziness or lose balance?
+                Do you have a bone or joint problem that could be made worse by physical activity?
 
               </h2>
 
               <select
-                name="dizziness"
+                name="jointProblem"
                 onChange={handleChange}
                 className="w-full bg-black border border-gray-700 p-4 rounded-xl"
               >
@@ -109,12 +112,12 @@ function PARQForm() {
 
               <h2 className="text-lg mb-3">
 
-                Do you have high blood pressure?
+                Are you currently on any medication? 
 
               </h2>
 
               <select
-                name="bloodPressure"
+                name="medication"
                 onChange={handleChange}
                 className="w-full bg-black border border-gray-700 p-4 rounded-xl"
               >
@@ -132,12 +135,12 @@ function PARQForm() {
 
               <h2 className="text-lg mb-3">
 
-                Do you have bone or joint problems?
+                Do you have diabetes (Type 1 or Type 2)?
 
               </h2>
 
               <select
-                name="boneProblem"
+                name="diabetes"
                 onChange={handleChange}
                 className="w-full bg-black border border-gray-700 p-4 rounded-xl"
               >
@@ -155,12 +158,12 @@ function PARQForm() {
 
               <h2 className="text-lg mb-3">
 
-                Are you diabetic?
+                Do you have high blood pressure or high cholesterol?
 
               </h2>
 
               <select
-                name="diabetes"
+                name="bloodPressure"
                 onChange={handleChange}
                 className="w-full bg-black border border-gray-700 p-4 rounded-xl"
               >
@@ -178,7 +181,7 @@ function PARQForm() {
 
               <h2 className="text-lg mb-3">
 
-                Are you pregnant?
+                Are you pregnant or have you given birth in the past 6 months?
 
               </h2>
 
@@ -194,6 +197,59 @@ function PARQForm() {
               </select>
 
             </div>
+            {/* QUESTION 7 */}
+            <div>
+            <h2 className="text-lg mb-3">
+              Do you have any injuries, surgeries, or physical limitations we should be aware of?
+              </h2>
+              <select
+                name="injuries"
+                onChange={handleChange}
+                className="w-full bg-black border border-gray-700 p-4 rounded-xl"
+              >
+
+                <option>No</option>
+                <option>Yes</option>
+
+              </select>
+              </div>
+
+              {/* QUESTION 8*/}
+            <div>
+            <h2 className="text-lg mb-3">
+              Do you know of any other reason why you should not do physical activity?
+              </h2>
+              <select
+                name="reason"
+                onChange={handleChange}
+                className="w-full bg-black border border-gray-700 p-4 rounded-xl"
+              >
+
+                <option>No</option>
+                <option>Yes</option>
+
+              </select>
+              </div>
+
+              <div>
+
+  <h2 className="text-lg mb-3">
+
+    Additional Notes
+
+  </h2>
+
+  <textarea
+    name="additional_note"
+    placeholder="Write if there is any other information you would like the trainer to know apart from the above questions..."
+    onChange={handleChange}
+    className="w-full bg-black border border-gray-700 p-4 rounded-xl outline-none min-h-[120px]"
+  />
+
+</div>
+
+              
+
 
             <button
               onClick={handleNext}
