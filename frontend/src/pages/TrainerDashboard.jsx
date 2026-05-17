@@ -1,17 +1,12 @@
-import {
-  Trash2
-} from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const API = "https://ravimaitritransformations.onrender.com";
 
 function TrainerDashboard() {
-
-  const navigate = useNavigate();
 
   const [showClients, setShowClients] = useState(false);
 
@@ -28,16 +23,6 @@ function TrainerDashboard() {
 
   const [dietData, setDietData] = useState("");
 
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  const [paymentData, setPaymentData] = useState({
-
-    amount: "",
-    payment_date: "",
-    next_due_date: ""
-
-  });
-
   useEffect(() => {
 
     fetchClients();
@@ -53,8 +38,6 @@ function TrainerDashboard() {
       const response = await axios.get(
         `${API}/clients`
       );
-
-      console.log(response.data);
 
       setClients(
         Array.isArray(response.data)
@@ -77,8 +60,6 @@ function TrainerDashboard() {
   };
 
   const openClients = async () => {
-
-    console.log("Clients clicked");
 
     setShowClients(true);
 
@@ -111,17 +92,6 @@ function TrainerDashboard() {
     setProgressData({
       ...progressData,
       [e.target.name]: e.target.value
-    });
-
-  };
-
-  const handlePaymentChange = (e) => {
-
-    setPaymentData({
-
-      ...paymentData,
-      [e.target.name]: e.target.value
-
     });
 
   };
@@ -192,71 +162,6 @@ function TrainerDashboard() {
 
   };
 
-  const addPayment = async (clientId) => {
-
-    try {
-
-      await axios.post(
-
-        `${API}/add-payment`,
-
-        {
-
-          client_id: clientId,
-
-          amount: paymentData.amount,
-
-          payment_date: paymentData.payment_date,
-
-          next_due_date: paymentData.next_due_date
-
-        }
-
-      );
-
-      alert("Payment Added");
-
-      setPaymentData({
-
-        amount: "",
-        payment_date: "",
-        next_due_date: ""
-
-      });
-
-    } catch (error) {
-
-      console.log(error);
-
-    }
-
-  };
-
-  const uploadTransformation = async (clientId) => {
-
-    try {
-
-      const formData = new FormData();
-
-      formData.append("client_id", clientId);
-
-      formData.append("image", selectedImage);
-
-      await axios.post(
-        `${API}/upload-transformation`,
-        formData
-      );
-
-      alert("Transformation Uploaded");
-
-    } catch (error) {
-
-      console.log(error);
-
-    }
-
-  };
-
   return (
 
     <div className="min-h-screen bg-black text-white">
@@ -305,8 +210,7 @@ function TrainerDashboard() {
 
             <p className="text-gray-400 text-lg">
 
-              Manage clients, workouts,
-              diet plans and payments.
+              Manage clients, workouts, diet plans and payments.
 
             </p>
 
@@ -325,8 +229,7 @@ function TrainerDashboard() {
 
             <p className="text-gray-400 text-lg">
 
-              View session booking requests
-              and approve/reject sessions.
+              View session booking requests and approve/reject sessions.
 
             </p>
 
@@ -349,17 +252,13 @@ function TrainerDashboard() {
                 loadingClients ? (
 
                   <p className="text-white text-xl">
-
                     Loading...
-
                   </p>
 
                 ) : clients.length === 0 ? (
 
                   <p className="text-white text-xl">
-
                     No clients found
-
                   </p>
 
                 ) : (
@@ -371,7 +270,7 @@ function TrainerDashboard() {
                       className="bg-[#111111] p-6 rounded-2xl mb-6"
                     >
 
-                      <div className="flex justify-between items-center">
+                      <div className="flex justify-between items-center mb-6">
 
                         <div>
 
@@ -395,6 +294,64 @@ function TrainerDashboard() {
                         >
 
                           <Trash2 />
+
+                        </button>
+
+                      </div>
+
+                      <div className="grid md:grid-cols-2 gap-4">
+
+                        <textarea
+                          name="notes"
+                          placeholder="Progress Notes"
+                          onChange={handleProgressChange}
+                          className="bg-black border border-gray-700 p-4 rounded-xl outline-none text-white"
+                        />
+
+                        <input
+                          type="number"
+                          name="current_weight"
+                          placeholder="Current Weight"
+                          onChange={handleProgressChange}
+                          className="bg-black border border-gray-700 p-4 rounded-xl outline-none text-white"
+                        />
+
+                        <button
+                          onClick={() => addProgress(client.id)}
+                          className="bg-orange-500 hover:bg-orange-600 py-3 rounded-xl font-bold"
+                        >
+
+                          Add Progress
+
+                        </button>
+
+                        <textarea
+                          placeholder="Workout Plan"
+                          onChange={(e) => setWorkoutData(e.target.value)}
+                          className="bg-black border border-gray-700 p-4 rounded-xl outline-none text-white"
+                        />
+
+                        <button
+                          onClick={() => addWorkout(client.id)}
+                          className="bg-orange-500 hover:bg-orange-600 py-3 rounded-xl font-bold"
+                        >
+
+                          Save Workout
+
+                        </button>
+
+                        <textarea
+                          placeholder="Diet Plan"
+                          onChange={(e) => setDietData(e.target.value)}
+                          className="bg-black border border-gray-700 p-4 rounded-xl outline-none text-white"
+                        />
+
+                        <button
+                          onClick={() => addDiet(client.id)}
+                          className="bg-orange-500 hover:bg-orange-600 py-3 rounded-xl font-bold"
+                        >
+
+                          Save Diet
 
                         </button>
 
