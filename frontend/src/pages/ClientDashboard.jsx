@@ -93,24 +93,25 @@ function ClientDashboard() {
     <div className="min-h-screen bg-black text-white">
 
       <Navbar />
+
       <div className="flex justify-end px-6 pt-6">
 
-  <button
-    onClick={() => {
+        <button
+          onClick={() => {
 
-      localStorage.removeItem("clientId");
+            localStorage.removeItem("clientId");
 
-      window.location.href = "/client-login";
+            window.location.href = "/client-login";
 
-    }}
-    className="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-xl font-bold"
-  >
+          }}
+          className="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-xl font-bold"
+        >
 
-    Logout
+          Logout
 
-  </button>
+        </button>
 
-</div>
+      </div>
 
       <div className="p-10 pt-32">
 
@@ -407,28 +408,59 @@ function ClientDashboard() {
 
           </h2>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          {
+            clientData.workouts?.length === 0 ? (
 
-            {
-              clientData.workouts?.map((workout, index) => (
+              <div className="text-gray-400 text-xl">
 
-                <div
-                  key={index}
-                  className="bg-[#111111] p-8 rounded-2xl shadow-lg"
-                >
+                No workout plans uploaded.
 
-                  <p className="text-lg text-gray-300 whitespace-pre-line">
+              </div>
 
-                    {workout.workout_text}
+            ) : (
 
-                  </p>
+              <div className="grid md:grid-cols-2 gap-8">
 
-                </div>
+                {
+                  clientData.workouts?.map((workout, index) => (
 
-              ))
-            }
+                    <div
+                      key={index}
+                      className="bg-[#111111] p-8 rounded-2xl shadow-lg"
+                    >
 
-          </div>
+                      <p className="text-lg text-gray-300 whitespace-pre-line mb-6">
+
+                        {workout.workout_text}
+
+                      </p>
+
+                      {
+                        workout.file_name && (
+
+                          <a
+                            href={`https://ravimaitritransformations.onrender.com/uploads/${workout.file_name}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-block bg-orange-500 hover:bg-orange-600 px-5 py-3 rounded-xl font-bold"
+                          >
+
+                            View Workout File
+
+                          </a>
+
+                        )
+                      }
+
+                    </div>
+
+                  ))
+                }
+
+              </div>
+
+            )
+          }
 
         </div>
 
@@ -442,28 +474,59 @@ function ClientDashboard() {
 
           </h2>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          {
+            clientData.diets?.length === 0 ? (
 
-            {
-              clientData.diets?.map((diet, index) => (
+              <div className="text-gray-400 text-xl">
 
-                <div
-                  key={index}
-                  className="bg-[#111111] p-8 rounded-2xl shadow-lg"
-                >
+                No diet plans uploaded.
 
-                  <p className="text-lg text-gray-300 whitespace-pre-line">
+              </div>
 
-                    {diet.diet_text}
+            ) : (
 
-                  </p>
+              <div className="grid md:grid-cols-2 gap-8">
 
-                </div>
+                {
+                  clientData.diets?.map((diet, index) => (
 
-              ))
-            }
+                    <div
+                      key={index}
+                      className="bg-[#111111] p-8 rounded-2xl shadow-lg"
+                    >
 
-          </div>
+                      <p className="text-lg text-gray-300 whitespace-pre-line mb-6">
+
+                        {diet.diet_text}
+
+                      </p>
+
+                      {
+                        diet.file_name && (
+
+                          <a
+                            href={`https://ravimaitritransformations.onrender.com/uploads/${diet.file_name}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-block bg-orange-500 hover:bg-orange-600 px-5 py-3 rounded-xl font-bold"
+                          >
+
+                            View Diet File
+
+                          </a>
+
+                        )
+                      }
+
+                    </div>
+
+                  ))
+                }
+
+              </div>
+
+            )
+          }
 
         </div>
 
