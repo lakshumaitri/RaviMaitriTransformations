@@ -119,6 +119,29 @@ function Services() {
             </p>
 
           </div>
+          <div className="bg-[#111111] p-8 rounded-3xl shadow-lg hover:scale-105 transition">
+
+  <h2 className="text-2xl font-bold text-orange-500 mb-4">
+
+    Online Coaching
+
+  </h2>
+
+  <p className="text-gray-300 leading-8 mb-6">
+
+    Personalized online fitness coaching including workout
+    plans, nutrition guidance, progress tracking, and
+    one-on-one trainer support from anywhere.
+
+  </p>
+
+  <button className="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-xl font-bold">
+
+    Enquire Now
+
+  </button>
+
+</div>
 
         </div>
 
