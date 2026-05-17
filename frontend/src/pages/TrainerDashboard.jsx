@@ -23,6 +23,12 @@ function TrainerDashboard() {
 
   const [dietData, setDietData] = useState("");
 
+  const [selectedWorkoutFile, setSelectedWorkoutFile] = useState(null);
+
+  const [selectedDietFile, setSelectedDietFile] = useState(null);
+
+  const [selectedTransformationImage, setSelectedTransformationImage] = useState(null);
+
   useEffect(() => {
 
     fetchClients();
@@ -122,19 +128,30 @@ function TrainerDashboard() {
 
     try {
 
+      const formData = new FormData();
+
+      formData.append("client_id", clientId);
+
+      formData.append("workout_text", workoutData);
+
+      if (selectedWorkoutFile) {
+
+        formData.append("file", selectedWorkoutFile);
+
+      }
+
       await axios.post(
         `${API}/add-workout`,
-        {
-          client_id: clientId,
-          workout_text: workoutData
-        }
+        formData
       );
 
-      alert("Workout Saved");
+      alert("Workout Uploaded");
 
     } catch (error) {
 
       console.log(error);
+
+      alert("Workout Upload Failed");
 
     }
 
@@ -144,19 +161,60 @@ function TrainerDashboard() {
 
     try {
 
+      const formData = new FormData();
+
+      formData.append("client_id", clientId);
+
+      formData.append("diet_text", dietData);
+
+      if (selectedDietFile) {
+
+        formData.append("file", selectedDietFile);
+
+      }
+
       await axios.post(
         `${API}/add-diet`,
-        {
-          client_id: clientId,
-          diet_text: dietData
-        }
+        formData
       );
 
-      alert("Diet Saved");
+      alert("Diet Uploaded");
 
     } catch (error) {
 
       console.log(error);
+
+      alert("Diet Upload Failed");
+
+    }
+
+  };
+
+  const uploadTransformation = async (clientId) => {
+
+    try {
+
+      const formData = new FormData();
+
+      formData.append("client_id", clientId);
+
+      formData.append(
+        "image",
+        selectedTransformationImage
+      );
+
+      await axios.post(
+        `${API}/upload-transformation`,
+        formData
+      );
+
+      alert("Transformation Uploaded");
+
+    } catch (error) {
+
+      console.log(error);
+
+      alert("Upload Failed");
 
     }
 
@@ -331,12 +389,23 @@ function TrainerDashboard() {
                           className="bg-black border border-gray-700 p-4 rounded-xl outline-none text-white"
                         />
 
+                        <input
+                          type="file"
+                          accept="image/*,.pdf"
+                          onChange={(e) =>
+                            setSelectedWorkoutFile(
+                              e.target.files[0]
+                            )
+                          }
+                          className="bg-black border border-gray-700 p-3 rounded-xl text-white"
+                        />
+
                         <button
                           onClick={() => addWorkout(client.id)}
                           className="bg-orange-500 hover:bg-orange-600 py-3 rounded-xl font-bold"
                         >
 
-                          Save Workout
+                          Upload Workout
 
                         </button>
 
@@ -346,12 +415,53 @@ function TrainerDashboard() {
                           className="bg-black border border-gray-700 p-4 rounded-xl outline-none text-white"
                         />
 
+                        <input
+                          type="file"
+                          accept="image/*,.pdf"
+                          onChange={(e) =>
+                            setSelectedDietFile(
+                              e.target.files[0]
+                            )
+                          }
+                          className="bg-black border border-gray-700 p-3 rounded-xl text-white"
+                        />
+
                         <button
                           onClick={() => addDiet(client.id)}
                           className="bg-orange-500 hover:bg-orange-600 py-3 rounded-xl font-bold"
                         >
 
-                          Save Diet
+                          Upload Diet
+
+                        </button>
+
+                      </div>
+
+                      <div className="mt-6 border border-gray-700 p-4 rounded-2xl">
+
+                        <h3 className="text-xl font-bold text-orange-500 mb-4">
+
+                          Upload Transformation
+
+                        </h3>
+
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) =>
+                            setSelectedTransformationImage(
+                              e.target.files[0]
+                            )
+                          }
+                          className="bg-black border border-gray-700 p-3 rounded-xl text-white w-full"
+                        />
+
+                        <button
+                          onClick={() => uploadTransformation(client.id)}
+                          className="mt-4 bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-xl font-bold"
+                        >
+
+                          Upload Transformation
 
                         </button>
 

@@ -116,7 +116,6 @@ class Workout(db.Model):
     file_name = db.Column(db.String(300))
 
 # DIET MODEL
-
 class Diet(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -124,6 +123,8 @@ class Diet(db.Model):
     client_id = db.Column(db.Integer)
 
     diet_text = db.Column(db.String(1000))
+
+    file_name = db.Column(db.String(300))
 
 
 # TRANSFORMATION MODEL
@@ -564,25 +565,50 @@ def get_workouts(client_id):
 # ADD OR UPDATE DIET PLAN
 
 @app.route("/add-diet", methods=["POST"])
-
 def add_diet():
 
-    data = request.json
+    client_id = request.form.get("client_id")
+
+    diet_text = request.form.get("diet_text")
+
+    uploaded_file = request.files.get("file")
+
+    file_name = ""
+
+    if uploaded_file:
+
+        file_name = secure_filename(
+            uploaded_file.filename
+        )
+
+        uploaded_file.save(
+
+            os.path.join(
+                app.config["UPLOAD_FOLDER"],
+                file_name
+            )
+
+        )
 
     existing_diet = Diet.query.filter_by(
-        client_id=data["client_id"]
+        client_id=client_id
     ).first()
 
     if existing_diet:
 
-        existing_diet.diet_text = data["diet_text"]
+        existing_diet.diet_text = diet_text
+
+        existing_diet.file_name = file_name
 
     else:
 
         diet = Diet(
 
-            client_id=data["client_id"],
-            diet_text=data["diet_text"]
+            client_id=client_id,
+
+            diet_text=diet_text,
+
+            file_name=file_name
 
         )
 
@@ -591,7 +617,9 @@ def add_diet():
     db.session.commit()
 
     return jsonify({
-        "message": "Diet Saved"
+
+        "message": "Diet Uploaded"
+
     })
 
 
@@ -610,8 +638,8 @@ def get_diets(client_id):
     for diet in diets:
 
         diet_list.append({
-
-            "diet_text": diet.diet_text
+"diet_text": diet.diet_text,
+"file_name": diet.file_name
 
         })
 
