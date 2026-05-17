@@ -291,7 +291,11 @@ function TrainerDashboard() {
         <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto mb-16">
 
           <div
-            onClick={openClients}
+            onClick={() => {
+              console.log("Clients clicked");
+              alert("Clients button clicked");
+              openClients();
+            }}
             className="bg-[#111111] p-12 rounded-3xl shadow-lg hover:scale-105 transition text-center cursor-pointer"
           >
 
